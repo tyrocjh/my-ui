@@ -1,6 +1,6 @@
 {
   "name": "tyro-ui",
-  "version": "0.0.2-beta",
+  "version": "0.0.3-beta",
   "private": false,
   "main": "dist/tyro-ui.common.js",
   "scripts": {
