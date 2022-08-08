@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <pagination
+    <dossen-pagination
       v-show="total > 0"
       :total="total"
       :page.sync="listQuery.pageIndex"
