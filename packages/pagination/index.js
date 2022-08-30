@@ -1,7 +1,7 @@
-import DossenPagination from './src/main.vue'
+import Pagination from './src/main'
 
-DossenPagination.install = function (Vue) {
-  Vue.component(DossenPagination.name, DossenPagination)
+Pagination.install = function(Vue) {
+  Vue.component(Pagination.name, Pagination)
 }
 
-export default DossenPagination
+export default Pagination
