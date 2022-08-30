@@ -18,3 +18,8 @@ export default {
   install,
   Pagination
 }
+
+export {
+  install,
+  Pagination
+}
