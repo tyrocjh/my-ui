@@ -1,7 +1,13 @@
-import Pagination from '../packages/pagination'
+import Backtop from '@pkg/backtop'
+import InputPassword from '@pkg/input-password'
+import Dialog from '@pkg/dialog'
+import Pagination from '@pkg/pagination'
 
 const components = [
-  Pagination
+  Backtop,
+  Dialog,
+  InputPassword,
+  Pagination,
 ]
 
 const install = function(Vue) {
@@ -16,7 +22,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install,
-  Pagination
+  ...components
 }
 
 export {

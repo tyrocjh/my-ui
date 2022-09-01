@@ -1,24 +1,25 @@
-# my-ui
+# B端UI组件库
 
-## Project setup
+这是一个使用webpack打包的B端UI组件库库。
+
+> 目的：让前端开发更高效，更专注于业务代码的编写
+
+## 基础UI组件使用说明
 ```
-npm install
+yarn install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+yarn dev
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build
+yarn build
 ```
 
 ### Lints and fixes files
 ```
-npm run lint
+yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -1,6 +1,7 @@
 <template>
   <div :class="{ hidden: hidden }" class="pagination-container">
     <el-pagination
+      v-bind="$attrs"
       :small="smallType"
       :background="background"
       :current-page.sync="currentPage"
@@ -9,7 +10,6 @@
       :page-sizes="pageSizes"
       :pager-count="pagerCount"
       :total="total"
-      v-bind="$attrs"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
@@ -20,7 +20,7 @@
 import { scrollTo } from '@/utils/scroll-to'
 
 export default {
-  name: 'DossenPagination',
+  name: 'DPagination',
   props: {
     total: {
       required: true,
