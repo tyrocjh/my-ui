@@ -2,12 +2,15 @@ import Backtop from '@pkg/backtop'
 import InputPassword from '@pkg/input-password'
 import Dialog from '@pkg/dialog'
 import Pagination from '@pkg/pagination'
+import SvgIcon from '@pkg/svg-icon'
+import '@/icons'
 
 const components = [
   Backtop,
   Dialog,
   InputPassword,
   Pagination,
+  SvgIcon,
 ]
 
 const install = function(Vue) {
@@ -27,5 +30,9 @@ export default {
 
 export {
   install,
-  Pagination
+  Backtop,
+  Dialog,
+  InputPassword,
+  Pagination,
+  SvgIcon
 }

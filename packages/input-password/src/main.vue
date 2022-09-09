@@ -5,8 +5,8 @@
         ref="password" v-bind="$props" v-trim :type="inputType"
         @change="changeFn" @input="inputFn" :placeholder="placeholder">
       </el-input>
-      <svg-icon v-if="inputType == 'password'" class="el-icon-view" icon-class="eye" @click="typeChangeFn" />
-      <svg-icon v-else class="el-icon-view" icon-class="eyeClose" @click="typeChangeFn" />
+      <svg-icon v-if="inputType == 'password'" class="icon-eye" icon-class="eye" @click="typeChangeFn" />
+      <svg-icon v-else class="icon-eye" icon-class="eye-close" @click="typeChangeFn" />
       <i v-if="value.length" class="el-input__icon el-icon-circle-close" @click="clearFn"></i>
     </div>
 
@@ -37,9 +37,13 @@
 
 <script>
 import trim from '@/directives/trim'
+import SvgIcon from '@pkg/svg-icon'
 
 export default {
   name: 'DInputPassword',
+  components: {
+    SvgIcon
+  },
   directives: { trim },
   props: {
     value: {
@@ -154,7 +158,7 @@ export default {
     .el-input__inner {
       padding-right: 45px;
     }
-    .el-icon-view {
+    .icon-eye {
       position: absolute;
       right: 10px;
       top: 7px;
