@@ -2,6 +2,7 @@ import Backtop from '@pkg/backtop'
 import InputPassword from '@pkg/input-password'
 import Dialog from '@pkg/dialog'
 import Pagination from '@pkg/pagination'
+import Steps from '@pkg/steps'
 import SvgIcon from '@pkg/svg-icon'
 import '@/icons'
 
@@ -10,6 +11,7 @@ const components = [
   Dialog,
   InputPassword,
   Pagination,
+  Steps,
   SvgIcon,
 ]
 
@@ -34,5 +36,6 @@ export {
   Dialog,
   InputPassword,
   Pagination,
+  Steps,
   SvgIcon
 }

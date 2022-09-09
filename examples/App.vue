@@ -11,6 +11,12 @@
 
     <br /><br />
 
+    <d-steps :time-line-data-list="timeLineDataList" />
+
+    <d-steps :time-line-data-list="timeLineDataList" :direction="direction" />
+
+    <br /><br />
+
     <d-svg-icon icon-class="eye" />
 
     <br /><br />
@@ -52,6 +58,13 @@ export default {
       roomDlgShow: false,
       password: '',
       verifyRes: false,
+      timeLineDataList: [
+        { time: '2021-04-01', color: 'A', label: '发起申请', info: '张三' },
+        { time: '2021-05-01', color: 'B', label: '直接上级审批', info: '李四'},
+        { time: '2021-06-01', color: 'D', label: '分管中心审批', info: '王五' },
+        { time: '2021-07-01', color: 'A', label: '完成' }
+      ],
+      direction: 'vertical',
     }
   },
   methods: {
