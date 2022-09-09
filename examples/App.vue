@@ -11,6 +11,10 @@
 
     <br /><br />
 
+    <d-svg-icon icon-class="eye" />
+
+    <br /><br />
+
     <d-input-password
       v-model="password"
       style="width:300px;"
