@@ -7,6 +7,7 @@ import Progress from '@pkg/progress'
 import Select from '@pkg/select'
 import Steps from '@pkg/steps'
 import SvgIcon from '@pkg/svg-icon'
+import Table from '@pkg/table'
 import '@/icons'
 
 const components = [
@@ -19,6 +20,7 @@ const components = [
   Select,
   Steps,
   SvgIcon,
+  Table,
 ]
 
 const install = function(Vue) {
@@ -46,5 +48,6 @@ export {
   Progress,
   Select,
   Steps,
-  SvgIcon
+  SvgIcon,
+  Table,
 }
