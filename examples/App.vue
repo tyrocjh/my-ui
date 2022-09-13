@@ -29,6 +29,56 @@
 
     <br /><br />
 
+    <div class="components-title">1.默认样式：</div>
+    <d-upload
+      ref="upload"
+      :fileList="uploadFileBeans"
+      @success-callback="fileChange"
+      @remove-callback="fileChange"
+    />
+
+    <div class="components-title">2.按钮形式：</div>
+    <d-upload
+      ref="upload"
+      :limit="6"
+      :fileType="'pic'"
+      :fileList="uploadFileBeans"
+      @success-callback="fileChange"
+      @remove-callback="fileChange"
+      :listType="'text'"
+    />
+
+    <div class="components-title">3.文字提示：</div>
+    <d-upload
+      ref="upload"
+      :limit="6"
+      :fileType="'pic'"
+      :fileList="uploadFileBeans"
+      @success-callback="fileChange"
+      @remove-callback="fileChange"
+      :tips="'支持上传不大于2MB的图片格式文件'"
+    />
+
+    <div class="components-title">4.可拖拽：</div>
+    <d-upload
+      ref="upload"
+      :fileList="uploadFileBeans"
+      @success-callback="fileChange"
+      @remove-callback="fileChange"
+      :drag="true"
+    />
+
+    <div class="components-title">5.缩略图模式：</div>
+    <d-upload
+      ref="upload"
+      :fileList="uploadFileBeans"
+      @success-callback="fileChange"
+      @remove-callback="fileChange"
+      :listType="'picture'"
+    />
+
+    <br /><br />
+
     <el-form>
       <el-form-item>
         <div>少于十个的</div>
@@ -303,6 +353,12 @@ export default {
           width: '200px'
         }
       ],
+      uploadFileBeans: [
+        {
+          name: 'food.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+        },
+      ],
     }
   },
   methods: {
@@ -315,6 +371,11 @@ export default {
     getHotelList() {
       this.list = this.options
       this.total = 11
+    },
+    fileChange(UploadObject) {
+      const fileList = Object.values(UploadObject);
+
+      this.uploadFileBeans.value = fileList;
     },
   },
 }

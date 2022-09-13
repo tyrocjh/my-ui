@@ -8,6 +8,7 @@ import Select from '@pkg/select'
 import Steps from '@pkg/steps'
 import SvgIcon from '@pkg/svg-icon'
 import Table from '@pkg/table'
+import Upload from '@pkg/upload'
 import '@/icons'
 
 const components = [
@@ -21,9 +22,10 @@ const components = [
   Steps,
   SvgIcon,
   Table,
+  Upload,
 ]
 
-const install = function(Vue) {
+const install = function (Vue) {
   components.forEach(component => {
     Vue.component(component.name, component)
   })
@@ -35,7 +37,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install,
-  ...components
+  ...components,
 }
 
 export {
@@ -50,4 +52,5 @@ export {
   Steps,
   SvgIcon,
   Table,
+  Upload,
 }
