@@ -1,5 +1,6 @@
 import Backtop from '@pkg/backtop'
 import Dialog from '@pkg/dialog'
+import GlobalLoading from '@pkg/global-loading'
 import InputPassword from '@pkg/input-password'
 import Pagination from '@pkg/pagination'
 import Progress from '@pkg/progress'
@@ -11,6 +12,7 @@ import '@/icons'
 const components = [
   Backtop,
   Dialog,
+  GlobalLoading,
   InputPassword,
   Pagination,
   Progress,
@@ -38,6 +40,7 @@ export {
   install,
   Backtop,
   Dialog,
+  GlobalLoading,
   InputPassword,
   Pagination,
   Progress,
