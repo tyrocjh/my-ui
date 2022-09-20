@@ -191,7 +191,7 @@ export default {
 <style lang="scss" scoped>
 .pagination {
   padding: 0;
-  ::v-deep .el-pagination {
+  ::v-deep(.el-pagination) {
     padding: 5px 10px;
   }
 }

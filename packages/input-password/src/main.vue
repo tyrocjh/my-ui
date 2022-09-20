@@ -1,16 +1,16 @@
 <template>
-  <div class="dossen-input-password">
-    <div class="input-password">
+  <div class="d-input-password">
+    <div class="d-input-password-wrapper">
       <el-input
         ref="password" v-bind="$props" v-trim :type="inputType"
         @change="changeFn" @input="inputFn" :placeholder="placeholder">
       </el-input>
-      <svg-icon v-if="inputType == 'password'" class="icon-eye" icon-class="eye" @click="typeChangeFn" />
-      <svg-icon v-else class="icon-eye" icon-class="eye-close" @click="typeChangeFn" />
+      <svg-icon v-if="inputType == 'password'" class="d-icon-eye" icon-class="d-eye" @click="typeChangeFn" />
+      <svg-icon v-else class="d-icon-eye" icon-class="d-eye-close" @click="typeChangeFn" />
       <i v-if="value.length" class="el-input__icon el-icon-circle-close" @click="clearFn"></i>
     </div>
 
-    <ul v-if="verifyShow" class="verifications" @mouseover="mouseoverFn" @mouseout="mouseoutFn">
+    <ul v-if="verifyShow" class="d-verifications" @mouseover="mouseoverFn" @mouseout="mouseoutFn">
       <li>
         <i v-if="isLength" class="el-icon-success"></i>
         <i v-else class="el-icon-error"></i>
@@ -142,13 +142,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dossen-input-password {
+.d-input-password {
   position: relative;
   display: inline-block;
   li {
     list-style: none;
   }
-  .input-password {
+  .d-input-password-wrapper {
     position: relative;
     &:hover {
       .el-icon-circle-close {
@@ -158,7 +158,7 @@ export default {
     .el-input__inner {
       padding-right: 45px;
     }
-    .icon-eye {
+    .d-icon-eye {
       position: absolute;
       right: 10px;
       top: 7px;
@@ -179,7 +179,7 @@ export default {
       }
     }
   }
-  .verifications {
+  .d-verifications {
     padding: 0;
     position: absolute;
     left: 0;

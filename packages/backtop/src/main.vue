@@ -1,10 +1,5 @@
 <template>
-  <el-backtop
-    class="back-top"
-    v-bind="$attrs"
-    :bottom="bottom"
-    :right="right"
-  >
+  <el-backtop class="d-back-top" v-bind="$attrs" :bottom="bottom" :right="right">
     <i class="el-icon-caret-top"></i>
   </el-backtop>
 </template>
@@ -26,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.back-top {
+.d-back-top {
   width: 50px;
   height: 50px;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.07);
