@@ -130,7 +130,7 @@ export default {
 
 <style lang="scss" scoped>
 .d-dialog-container {
-  .el-dialog {
+  ::v-deep(.el-dialog) {
     position: relative;
     left: 0;
     transform: none;

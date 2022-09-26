@@ -1,111 +1,91 @@
 <template>
   <el-select
+    class="d-select"
+    v-bind="$attrs"
     v-model="selectValue"
-    :clearable="clearable"
-    :multiple="multiple"
-    :collapse-tags="collapseTags"
-    :filterable="filterable"
-    :disabled="disabled"
-    placeholder="请选择"
+    @change="handleChange"
   >
-    <template v-if="isGroup">
-      <el-option
-        v-for="item in options"
-        :key="item[propsType.key]"
-        :label="item[propsType.key]"
-        :value="item[propsType.label]"
-        :disabled="item.disabled"
-      >
-      </el-option>
-    </template>
-    <template v-else>
+    <template v-if="isOptionGroup">
       <el-option-group
-        v-for="(group, index) in options"
-        :key="index"
-        :label="group[propsGroupType.name]"
+        v-for="group in options"
+        :key="group[optionGroupProps.label]"
+        :label="group[optionGroupProps.label]"
       >
-        <el-option
-          v-for="item in group[propsGroupType.arr]"
-          :key="item[propsType.key]"
-          :label="item[propsType.label]"
-          :value="item[propsType.label]"
-        >
-        </el-option>
+        <options :options="group.options" :option-props="optionProps">
+          <template v-slot="scope">
+            <slot name="option" :row="scope.row" />
+          </template>
+        </options>
       </el-option-group>
     </template>
-    <!-- 分页 -->
-    <div :class="{ hidden: hidden }" class="pagination-container pagination">
-      <el-pagination
-        :small="smallType"
-        :background="background"
-        :hide-on-single-page="hideOnSinglePage"
-        :current-page.sync="currentPage"
-        :page-size.sync="pageSize"
-        :layout="layout"
-        :page-sizes="pageSizes"
-        :pager-count="pagerCount"
-        :total="total"
-        v-bind="$attrs"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
-    </div>
+
+    <template v-else>
+      <options :options="options" :option-props="optionProps">
+        <template v-slot="scope">
+          <slot name="option" :row="scope.row" />
+        </template>
+      </options>
+    </template>
+
+    <d-pagination
+      v-if="showPagination"
+      small-type
+      layout="total, prev, pager, next"
+      :auto-scroll="false"
+      :total="total"
+      :page="page"
+      :limit="limit"
+      @pagination="changePagination"
+    />
   </el-select>
 </template>
 
 <script>
+import Options from './options'
+
 export default {
   name: 'DSelect',
+  components: {
+    Options,
+  },
+  model: {
+    prop: 'selectModel',
+    event: 'change',
+  },
   props: {
-    propsType: {
-      type: Object,
-      default: () => ({}),
-    },
-    isGroup: {
-      type: Boolean,
-      default: true,
-    },
-    propsGroupType: {
-      type: Object,
-      default: () => ({}),
+    selectModel: {
+      type: [Object, Array, String],
+      default: '',
     },
     options: {
       type: Array,
-      default: () => {
-        return []
-      },
+      default: () => [],
     },
-    selectValue: {
-      type: String,
-      default: '',
-    },
-    clearable: {
+    isOptionGroup: {
       type: Boolean,
       default: false,
     },
-    multiple: {
+    optionGroupProps: {
+      type: Object,
+      default: () => ({
+        label: 'label',
+      }),
+    },
+    optionProps: {
+      type: Object,
+      default: () => ({
+        key: 'key',
+        label: 'label',
+        value: 'value',
+      }),
+    },
+    showPagination: {
       type: Boolean,
       default: false,
-    },
-    collapseTags: {
-      type: Boolean,
-      default: false,
-    },
-    filterable: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    hideOnSinglePage: {
-      type: Boolean,
-      default: true,
     },
     total: {
-      required: false,
       type: Number,
+      default: 0,
     },
     page: {
       type: Number,
@@ -115,84 +95,21 @@ export default {
       type: Number,
       default: 5,
     },
-    pageSizes: {
-      type: Array,
-      default() {
-        return [5, 10, 15, 20]
-      },
-    },
-    pagerCount: {
-      type: Number,
-      default: 7,
-    },
-    layout: {
-      type: String,
-      default: 'total, sizes, prev, pager, next, jumper',
-    },
-    background: {
-      type: Boolean,
-      default: true,
-    },
-    autoScroll: {
-      type: Boolean,
-      default: true,
-    },
-    hidden: {
-      type: Boolean,
-      default: false,
-    },
-    smallType: {
-      type: Boolean,
-      default: false,
-    },
-    itemDisabled: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
-    return {}
-  },
-  computed: {
-    currentPage: {
-      get() {
-        return this.page
-      },
-      set(val) {
-        this.$emit('update:page', val)
-      },
-    },
-    pageSize: {
-      get() {
-        return this.limit
-      },
-      set(val) {
-        this.$emit('update:limit', val)
-      },
-    },
+    return {
+      selectValue: this.selectModel,
+    }
   },
   methods: {
-    handleSizeChange(val) {
-      this.$emit('pagination', { page: this.currentPage, limit: val })
-      if (this.autoScroll) {
-        scrollTo(0, 300)
-      }
+    handleChange() {
+      this.$emit('change', this.selectValue)
     },
-    handleCurrentChange(val) {
-      this.$emit('pagination', { page: val, limit: this.pageSize })
-      if (this.autoScroll) {
-        scrollTo(0, 300)
-      }
+    changePagination(data) {
+      this.$emit('pagination', data)
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
-.pagination {
-  padding: 0;
-  ::v-deep(.el-pagination) {
-    padding: 5px 10px;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

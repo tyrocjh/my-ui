@@ -1,34 +1,31 @@
 <template>
   <el-table
-    ref="dosTable"
-    :data="tableList"
-    :stripe="stripe"
-    fit
-    :row-key="rowKey"
+    class="d-table"
     v-loading="loading"
+    :data="tableList"
+    :row-key="rowKey"
+    :tree-props="{ children: 'children' }"
+    :stripe="stripe"
+    :height="height"
+    fit
     :header-cell-style="{
-      height: '40px',
       'font-size': '16px',
       'font-weight': '600',
       background: '#F5F6FB',
       color: '#36395C',
     }"
     :row-style="{
-      height: '40px',
+      height: '44px',
       'font-size': '14px',
       color: '#36465d',
       background: '#FBRBFD',
     }"
     style="width: 100%"
-    :height="height"
-    :tree-props="{ children: 'children' }"
     @selection-change="selectionChange"
     @select-all="selectAll"
     @select="selectItem"
     @sort-change="sortChange"
-    class="dosTable"
   >
-    <!-- border: '2px solid #EFEFF6', -->
     <template v-for="(itm, idx) in tableHeader">
       <!-- 复选框 -->
       <el-table-column
@@ -79,24 +76,24 @@
 export default {
   name: 'DTable',
   props: {
-    // 表格数据
-    tableList: {
-      type: Array,
-      default: () => [],
-    },
     // 表格头部
     tableHeader: {
       type: Array,
       default: () => [],
     },
-    // 固定高度
-    height: {
-      type: [Number, String, Function],
-      default: () => null,
+    // 表格数据
+    tableList: {
+      type: Array,
+      default: () => [],
     },
     // 加载动画
     loading: {
       type: Boolean,
+    },
+    // 固定高度
+    height: {
+      type: [Number, String, Function],
+      default: () => null,
     },
     // 跟:reserve-selection="true"结合，保证模态框内的客户列表数据翻页依然选中之前选择的
     rowKey: {
@@ -156,3 +153,6 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

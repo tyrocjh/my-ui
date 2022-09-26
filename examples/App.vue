@@ -83,16 +83,19 @@
       <el-form-item>
         <div>少于十个的</div>
         <d-select
-          :propsType="propsType"
-          :selectValue="selectValue"
+          v-model="selectValue1"
           :options="options"
-        />
+        >
+          <template v-slot:option="scope">
+            <span>{{ scope.row.label }}</span>
+            <span>（{{ scope.row.value }}）</span>
+          </template>
+        </d-select>
       </el-form-item>
       <el-form-item>
         <div>可清空功能（只支持单选）</div>
         <d-select
-          :propsType="propsType"
-          :selectValue="selectValue"
+          v-model="selectValue2"
           :options="options"
           :clearable="true"
         />
@@ -100,8 +103,7 @@
       <el-form-item>
         <div>可搜索功能</div>
         <d-select
-          :propsType="propsType"
-          :selectValue="selectValue"
+          v-model="selectValue3"
           :options="options"
           :filterable="true"
         />
@@ -109,61 +111,56 @@
       <el-form-item>
         <div>分页功能</div>
         <d-select
-          :propsType="propsType"
-          :selectValue="selectValue"
+          v-model="selectValue4"
           :options="options"
           :filterable="true"
+          :showPagination="true"
           :total="total"
-          :hideOnSinglePage="false"
-          :page.sync="listQuery.pageIndex"
-          :limit.sync="listQuery.pageSize"
+          :page="listQuery.pageIndex"
+          :limit="listQuery.pageSize"
           @pagination="getHotelList"
         />
       </el-form-item>
       <el-form-item>
         <div>多选一行展示功能</div>
         <d-select
-          :propsType="propsType"
-          :selectValue="selectValue"
+          v-model="selectValue5"
           :options="options"
-          :multiple="true"
-          :collapseTags="true"
+          multiple
+          collapse-tags
         />
       </el-form-item>
       <el-form-item>
         <div>多选多行展示功能</div>
         <d-select
-          :propsType="propsType"
-          :selectValue="selectValue"
+          v-model="selectValue6"
           :options="options"
-          :multiple="true"
+          multiple
         />
       </el-form-item>
       <el-form-item>
         <div>不可编辑</div>
         <d-select
-          :propsType="propsType"
-          :selectValue="selectValue"
+          v-model="selectValue7"
           :options="options"
-          :multiple="true"
-          :disabled="true"
+          disabled
         />
       </el-form-item>
       <el-form-item>
         <div>带禁用项</div>
         <d-select
-          :propsType="propsType1"
-          :selectValue="selectValue"
+          v-model="selectValue8"
+          :option-props="propsType"
           :options="options1"
         />
       </el-form-item>
       <el-form-item>
         <div>带分组类别</div>
         <d-select
-          :isGroup="false"
-          :propsGroupType="propsGroupType"
-          :propsType="propsGroupChildType"
-          :selectValue="selectValue"
+          v-model="selectValue9"
+          :is-option-group="true"
+          :option-group-props="propsGroupType"
+          :option-props="propsGroupChildType"
           :options="options2"
         />
       </el-form-item>
@@ -272,7 +269,7 @@ export default {
       ],
       options2: [
         {
-          label: '热门城市',
+          label1: '热门城市',
           options: [
             {
               id: 'Shanghai',
@@ -285,7 +282,7 @@ export default {
           ],
         },
         {
-          label: '城市名',
+          label1: '城市名',
           options: [
             {
               id: 'Chengdu',
@@ -306,22 +303,26 @@ export default {
           ],
         },
       ],
-      selectValue: '',
+      selectValue1: '',
+      selectValue2: '',
+      selectValue3: '',
+      selectValue4: '',
+      selectValue5: '',
+      selectValue6: '',
+      selectValue7: '',
+      selectValue8: '',
+      selectValue9: '',
       propsType: {
-        key: 'value',
-        label: 'label',
-      },
-      propsType1: {
-        key: 'name',
-        label: 'id',
+        key: 'id',
+        label: 'name',
+        value: 'id'
       },
       propsGroupType: {
-        name: 'label',
-        arr: 'options',
+        label: 'label1',
       },
       propsGroupChildType: {
-        key: 'name',
-        label: 'id',
+        label: 'name',
+        value: 'id'
       },
       tableList: [
         { 'id': 1, age: 16, name: '11', $selectable: false, children: [{ 'id': 13, age: 16, name: '11' }], a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
@@ -370,7 +371,7 @@ export default {
     },
     getHotelList() {
       this.list = this.options
-      this.total = 11
+      this.total = 20
     },
     fileChange(UploadObject) {
       const fileList = Object.values(UploadObject);
