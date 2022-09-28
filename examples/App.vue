@@ -9,6 +9,17 @@
 
     <br /><br />
 
+    <d-input-password
+      v-model="password"
+      style="width: 300px"
+      @update:clear="password = $event"
+      @update:verify="verifyRes = $event"
+      @change="changeFn1"
+    >
+    </d-input-password>
+
+    <br /><br />
+
     <d-table
       :header-list="tableHeader"
       :table-list="tableList"
@@ -178,24 +189,17 @@
 
     <br /><br />
 
-    <d-steps :time-line-data-list="timeLineDataList" />
+    <d-steps :data-list="timeLineDataList" :active="1" :step-props="stepProps" />
 
-    <d-steps :time-line-data-list="timeLineDataList" :direction="direction" />
+    <br /><br />
+
+    <d-steps :data-list="timeLineDataList" :active="1" :step-props="stepProps" direction="vertical" :space="80" />
 
     <br /><br />
 
     <d-svg-icon icon-class="eye" />
 
     <br /><br />
-
-    <d-input-password
-      v-model="password"
-      style="width: 300px"
-      @update:clear="password = $event"
-      @update:verify="verifyRes = $event"
-      @change="changeFn1"
-    >
-    </d-input-password>
 
     <!-- 对话框 -->
     <d-dialog :show.sync="roomDlgShow" title="对话框" width="680px">
@@ -221,12 +225,16 @@ export default {
       password: '',
       verifyRes: false,
       timeLineDataList: [
-        { time: '2021-04-01', color: 'A', label: '发起申请', info: '张三' },
-        { time: '2021-05-01', color: 'B', label: '直接上级审批', info: '李四' },
-        { time: '2021-06-01', color: 'D', label: '分管中心审批', info: '王五' },
-        { time: '2021-07-01', color: 'A', label: '完成' },
+        { time: '2021-04-01', title: '发起申请', info: '张三' },
+        { time: '2021-05-01', title: '直接上级审批', info: '李四' },
+        { time: '2021-06-01', title: '分管中心审批', info: '王五' },
+        { time: '2021-07-01', title: '完成' },
       ],
-      direction: 'vertical',
+      stepProps: {
+        title: 'title',
+        descript: 'info',
+        time: 'time',
+      },
       options: [
         {
           value: '选项1',
@@ -361,7 +369,7 @@ export default {
           name: 'food.jpeg',
           url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
         },
-      ],
+      ]
     }
   },
   methods: {

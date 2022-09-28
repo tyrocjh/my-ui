@@ -1,18 +1,14 @@
 <template>
-  <div class="steps">
-    <el-steps :direction="direction" :active="2">
-      <el-step
-        v-for="(item, index) in timeLineDataList"
-        :key="index"
-        :style="direction == 'vertical' ? 'height:80px;flex-basis: auto' : ''"
-      >
+  <div class="d-steps">
+    <el-steps v-bind="$attrs">
+      <el-step v-for="(item, index) in dataList" :key="index">
         <template slot="icon">
-          <span class="dot"></span>
+          <span class="v-dot"></span>
         </template>
         <template slot="description">
-          <div class="label">{{ item.label }}</div>
-          <div class="reason" v-if="item.info != null">{{ item.info }}</div>
-          <div class="time">{{ item.time }}</div>
+          <div class="v-title">{{ item[stepProps.title] }}</div>
+          <div class="v-descript">{{ item[stepProps.descript] }}</div>
+          <div class="v-time">{{ item[stepProps.time] }}</div>
         </template>
       </el-step>
     </el-steps>
@@ -23,37 +19,45 @@
 export default {
   name: 'DSteps',
   props: {
-    timeLineDataList: {
-      type: Array,
+    dataList: {
       require: true,
+      type: Array,
       default: () => [],
     },
-    direction: {
-      type: String,
-      default: 'horizontal',
-    },
-  },
-  data() {
-    return {}
-  },
-  methods: {
+    stepProps: {
+      type: Object,
+      default: () => ({
+        title: 'title',
+        descript: 'descript',
+        time: 'time'
+      })
+    }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.steps {
-  margin: calc(1.5vh) calc(2vh) calc(4vh) 0;
-  .img {
-    width: 25px;
-    height: 25px;
+.d-steps {
+  .v-dot {
+    display: inline-block;
+    background: #ccc;
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+  }
+  .v-descript {
+    font-size: 12px;
+    color: #333;
+  }
+  .v-time {
+    color: #c0c4cc !important;
+  }
+  ::v-deep(.is-horizontal) .v-title {
+    margin-top: 10px;
   }
   ::v-deep(.el-step__line) {
     border: 1px dashed #eaebf2;
     background: #fff;
-  }
-  ::v-deep(.is-horizontal) .label {
-    margin-top: 10px;
   }
   ::v-deep(.is-finish),
   .is-process,
@@ -67,36 +71,19 @@ export default {
       border: none;
       background: #e2e6fe;
     }
-    .dot {
+    .v-dot {
       background: #4646e6;
     }
-    .label {
-      color: #333;
+    .v-title {
+      margin-bottom: 2px;
       font-size: 14px;
       font-weight: 700;
-      margin-bottom: 2px;
-    }
-    .is-wait .label {
-      color: #ccc;
+      color: #333;
     }
   }
   ::v-deep(.el-step__icon) {
     border: none;
     background: #f4f5fa;
-  }
-  ::v-deep(.dot) {
-    display: inline-block;
-    background: #ccc;
-    width: 12px;
-    height: 12px;
-    border-radius: 6px;
-  }
-  ::v-deep(.reason) {
-    font-size: 12px;
-    color: #333;
-  }
-  ::v-deep(.time) {
-    color: #c0c4cc !important;
   }
 }
 </style>
