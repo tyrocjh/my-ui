@@ -2,15 +2,15 @@
   <div class="d-input-password">
     <div class="d-input-password-wrapper">
       <el-input
-        ref="password" v-bind="$props" v-trim :type="inputType"
-        @change="changeFn" @input="inputFn" :placeholder="placeholder">
+        ref="dPassword" v-bind="$attrs" v-on="$listeners" v-model.trim="inputValue" :type="inputType"
+        :placeholder="placeholder" @change="handleChange" @input="handleInput">
       </el-input>
-      <svg-icon v-if="inputType == 'password'" class="d-icon-eye" icon-class="d-eye" @click="typeChangeFn" />
-      <svg-icon v-else class="d-icon-eye" icon-class="d-eye-close" @click="typeChangeFn" />
-      <i v-if="value.length" class="el-input__icon el-icon-circle-close" @click="clearFn"></i>
+      <svg-icon v-if="inputType === 'password'" class="d-icon-eye" icon-class="d-eye" @click="inputType = 'text'" />
+      <svg-icon v-else class="d-icon-eye" icon-class="d-eye-close" @click="inputType = 'password'" />
+      <i v-if="inputValue.length" class="el-input__icon el-icon-circle-close" @click="handleClean"></i>
     </div>
 
-    <ul v-if="verifyShow" class="d-verifications" @mouseover="mouseoverFn" @mouseout="mouseoutFn">
+    <ul v-if="verifyShow" class="d-verifications" @mouseover="handleMouseover" @mouseout="handleMouseout">
       <li>
         <i v-if="isLength" class="el-icon-success"></i>
         <i v-else class="el-icon-error"></i>
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import trim from '@/directives/trim'
 import SvgIcon from '@pkg/svg-icon'
 
 export default {
@@ -44,11 +43,14 @@ export default {
   components: {
     SvgIcon
   },
-  directives: { trim },
+  model: {
+    prop: 'inputModel',
+    event: 'change',
+  },
   props: {
-    value: {
+    inputModel: {
       type: String,
-      default: ''
+      default: '',
     },
     placeholder: {
       type: String,
@@ -57,57 +59,28 @@ export default {
   },
   data() {
     return {
+      inputValue: this.inputModel,
+      inputType: 'password',
+      timer: null,
       verifyShow: false,
       isLength: false,
       isNumber: false,
       isCapitalize: false,
       isLowercase: false,
-      inputType: 'password',
-      timer: null,
     }
   },
   mounted() {
-    this.$refs.password.$el.querySelector('.el-input__inner').style =
+    this.$refs.dPassword.$el.querySelector('.el-input__inner').style =
       'padding-right:55px;'
   },
   methods: {
-    // 离开
-    mouseoutFn() {
-      this.timer = setTimeout(() => {
-        this.verifyShow = false
-      }, 3000)
-    },
-    // 停留
-    mouseoverFn() {
-      this.verifyShow = true
-      clearTimeout(this.timer)
-    },
-    // 清除内容
-    clearFn() {
-      this.$emit('update:clear', '')
-    },
-    // 改变input类型
-    typeChangeFn() {
-      if (this.inputType === 'password') {
-        this.inputType = 'text'
-      } else {
-        this.inputType = 'password'
-      }
-    },
-    // 值改变
-    changeFn(v) {
-      this.$emit('change', v)
-      this.timer = setTimeout(() => {
-        this.verifyShow = false
-      }, 3000)
-    },
-    // 输入值
-    inputFn(v) {
-      let len = v.length,
+    handleInput(value) {
+      const len = value.length,
         numRex = /[0-9]/g,
         capitalizeRex = /[a-z]/g,
-        lowercase = /[A-Z]/g,
-        verify = true
+        lowercase = /[A-Z]/g
+      
+      let verify = true
 
       if (len >= 8 && len <= 32) {
         this.isLength = true
@@ -115,27 +88,45 @@ export default {
         this.isLength = false
         verify = false
       }
-      if (v.search(numRex) >= 0) {
+      if (value.search(numRex) >= 0) {
         this.isNumber = true
       } else {
         this.isNumber = false
         verify = false
       }
-      if (v.search(capitalizeRex) >= 0) {
+      if (value.search(capitalizeRex) >= 0) {
         this.isCapitalize = true
       } else {
         this.isCapitalize = false
         verify = false
       }
-      if (v.search(lowercase) >= 0) {
+      if (value.search(lowercase) >= 0) {
         this.isLowercase = true
       } else {
         this.isLowercase = false
         verify = false
       }
       this.verifyShow = true
-      this.$emit('update:verify', verify)
-      this.$emit('input', v)
+      this.$emit('update:status', verify)
+    },
+    handleChange() {
+      this.setTimer()
+    },
+    handleClean() {
+      this.inputValue = ''
+      this.$emit('handle-clean')
+    },
+    handleMouseover() {
+      this.verifyShow = true
+      clearTimeout(this.timer)
+    },
+    handleMouseout() {
+      this.setTimer()
+    },
+    setTimer() {
+      this.timer = setTimeout(() => {
+        this.verifyShow = false
+      }, 3000)
     },
   },
 }
@@ -161,37 +152,40 @@ export default {
     .d-icon-eye {
       position: absolute;
       right: 10px;
-      top: 7px;
-      line-height: 0;
+      top: 50%;
+      transform: translateY(-50%);
       font-size: 20px;
       cursor: pointer;
     }
     .el-icon-circle-close {
       position: absolute;
       right: 35px;
-      top: 1px;
-      line-height: 0;
-      cursor: pointer;
+      top: 50%;
+      transform: translateY(-50%);
       display: none;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
       color: #ccc;
+      cursor: pointer;
       &:hover {
         color: #999999;
       }
     }
   }
   .d-verifications {
-    padding: 0;
+    z-index: 9999;
     position: absolute;
-    left: 0;
     top: 20px;
-    background: #fff;
+    left: 0;
+    padding: 0;
     width: 100%;
-    border-radius: 5px;
-    font-size: 14px;
     line-height: 30px;
-    box-shadow: 0px 4px 8px 0 #00000050;
+    font-size: 14px;
     color: rgb(172, 172, 172);
-    z-index: 1;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgb(0, 0, 0, 31%);
     li {
       margin-left: 10px;
     }

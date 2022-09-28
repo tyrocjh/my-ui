@@ -11,10 +11,9 @@
 
     <d-input-password
       v-model="password"
-      style="width: 300px"
-      @update:clear="password = $event"
-      @update:verify="verifyRes = $event"
-      @change="changeFn1"
+      :status.sync="passwordStatus"
+      @change="handleChange"
+      @handle-clean="handleClean"
     >
     </d-input-password>
 
@@ -223,7 +222,7 @@ export default {
       total: 20,
       roomDlgShow: false,
       password: '',
-      verifyRes: false,
+      passwordStatus: false,
       timeLineDataList: [
         { time: '2021-04-01', title: '发起申请', info: '张三' },
         { time: '2021-05-01', title: '直接上级审批', info: '李四' },
@@ -376,9 +375,6 @@ export default {
     handleAdd() {
       this.roomDlgShow = true
     },
-    changeFn1() {
-      console.log(this.password, this.verifyRes)
-    },
     getHotelList() {
       this.list = this.options
       this.total = 20
@@ -395,8 +391,14 @@ export default {
       console.log('selectAll: ', selection)
     },
     handleClick(row) {
-      console.info(row)
+      console.log(row)
     },
+    handleChange() {
+      console.log(this.password, this.passwordStatus)
+    },
+    handleClean() {
+      console.log('clean...')
+    }
   },
 }
 </script>
