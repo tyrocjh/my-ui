@@ -10,17 +10,23 @@
     <br /><br />
 
     <d-table
-      :tableList="tableList"
-      rowKey="id"
-      :tableHeader="tableHeader"
-      :stripe="true"
+      :header-list="tableHeader"
+      :table-list="tableList"
+      row-key="id"
+      placeholder=""
+      @selection-change="selectionChange"
+      @select-all="selectAll"
     >
-      <template slot="a" slot-scope="{ scope }">
-        {{ scope.row.a ? "通过" : "不通过" }}
-      </template>
-      <template slot="operates">
-        <span>操作按钮</span>
-      </template>
+      <el-table-column slot="a" label="a" prop="a" width="200" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.a ? "通过" : "不通过" }}
+        </template>
+      </el-table-column>
+      <el-table-column slot="operates" label="操作" align="center" fixed="right">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleClick(scope.row)">查看</el-button>
+        </template>
+      </el-table-column>
     </d-table>
 
     <br /><br />
@@ -328,11 +334,11 @@ export default {
         { 'id': 1, age: 16, name: '11', $selectable: false, children: [{ 'id': 13, age: 16, name: '11' }], a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 2, age: 16, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 3, age: 16, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
-        { 'id': 4, age: 16, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
+        { 'id': 4, age: 16, name: '11', a: 123, b: 5555, c: '', d: 89, e: 89, f: 89, g: 89 },
         { 'id': 5, age: 16, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 6, age: 12, name: '11', a: 0, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 7, age: 16, name: '11', a: 0, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
-        { 'id': 8, age: 14, name: '11', a: 0, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
+        { 'id': 8, age: 14, name: '11', a: 0, b: '', c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 9, age: 11, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 11, age: 13, name: 'Hello, worldHello, worldHello, world', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 }
       ],
@@ -341,18 +347,14 @@ export default {
         { type: 'index' },
         { prop: 'age', label: '年龄', sortable: true, width: '200px' },
         { prop: 'name', label: '姓名', width: '100px' },
-        { slot: 'a', label: 'a', width: '200px' },
+        { slot: 'a' },
         { prop: 'b', label: 'b', width: '200px' },
         { prop: 'c', label: 'c', width: '200px' },
         { prop: 'd', label: 'd', width: '200px' },
         { prop: 'e', label: 'e', width: '200px' },
         { prop: 'f', label: 'f', width: '200px' },
         { prop: 'g', label: 'g', width: '200px' },
-        {
-          label: '操作',
-          slot: 'operates',
-          width: '200px'
-        }
+        { slot: 'operates' }
       ],
       uploadFileBeans: [
         {
@@ -377,6 +379,15 @@ export default {
       const fileList = Object.values(UploadObject);
 
       this.uploadFileBeans.value = fileList;
+    },
+    selectionChange(selection) {
+      console.log('selectionChange: ', selection)
+    },
+    selectAll(selection) {
+      console.log('selectAll: ', selection)
+    },
+    handleClick(row) {
+      console.info(row)
     },
   },
 }

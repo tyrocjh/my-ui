@@ -1,71 +1,52 @@
 <template>
   <el-table
     class="d-table"
+    v-bind="$attrs"
+    v-on="$listeners"
     v-loading="loading"
     :data="tableList"
-    :row-key="rowKey"
-    :tree-props="{ children: 'children' }"
     :stripe="stripe"
-    :height="height"
-    fit
-    :header-cell-style="{
-      'font-size': '16px',
-      'font-weight': '600',
-      background: '#F5F6FB',
-      color: '#36395C',
-    }"
-    :row-style="{
-      height: '44px',
-      'font-size': '14px',
-      color: '#36465d',
-      background: '#FBRBFD',
-    }"
-    style="width: 100%"
-    @selection-change="selectionChange"
-    @select-all="selectAll"
-    @select="selectItem"
-    @sort-change="sortChange"
+    :header-cell-style="headerCellStyle"
+    :row-style="rowStyle"
   >
-    <template v-for="(itm, idx) in tableHeader">
+    <template v-for="(item, idx) in headerList">
+      <!-- 插槽 -->
+      <slot v-if="item.slot" :name="item.slot" />
       <!-- 复选框 -->
       <el-table-column
-        :key="idx"
-        v-if="itm.type === 'selection'"
+        v-else-if="item.type === 'selection'"
         type="selection"
-        :reserve-selection="itm.reserveSelection || false"
-        :selectable="selectable"
-        :fixed="itm.fixed ? itm.fixed : null"
-        width="55"
-      ></el-table-column>
-      <!-- 序号 -->
-      <el-table-column
         :key="idx"
-        v-else-if="itm.type === 'index'"
-        type="index"
-        width="55"
-        label="序号"
-        :fixed="itm.fixed ? itm.fixed : null"
+        :fixed="item.fixed"
+        :selectable="selectable"
+        :reserve-selection="item.reserveSelection || false"
+        :align="item.align || defaultAlign"
+        :width="item.width || smallWidth"
       ></el-table-column>
-      <!-- 特殊处理列 -->
+      <!-- 索引 -->
+      <el-table-column
+        v-else-if="item.type === 'index'"
+        type="index"
+        :key="idx"
+        :label="item.label || '序号'"
+        :fixed="item.fixed"
+        :align="item.align || defaultAlign"
+        :width="item.width || smallWidth"
+      ></el-table-column>
+      <!-- 普通列 -->
       <el-table-column
         v-else
         :key="idx"
-        :prop="itm.prop ? itm.prop : null"
-        :label="itm.label ? itm.label : null"
-        :width="itm.width ? itm.width : null"
-        :sortable="itm.sortable ? itm.sortable : false"
-        :align="itm.align ? itm.align : 'center'"
-        :show-overflow-tooltip="itm.tooltip ? itm.tooltip : true"
-        :fixed="itm.fixed ? itm.fixed : null"
-        min-width="50"
+        :label="item.label"
+        :prop="item.prop"
+        :sortable="item.sortable"
+        :show-overflow-tooltip="item.showOverflowTooltip"
+        :fixed="item.fixed"
+        :align="item.align || defaultAlign"
+        :width="item.width || normalWidth"
       >
         <template slot-scope="scope">
-          <slot v-if="itm.slot" :name="itm.slot" :scope="scope"></slot>
-          <span v-else>{{
-            scope.row[tableHeader[idx].prop]
-              ? scope.row[tableHeader[idx].prop]
-              : '--'
-          }}</span>
+          <span>{{ scope.row[item.prop] || placeholder }}</span>
         </template>
       </el-table-column>
     </template>
@@ -76,83 +57,60 @@
 export default {
   name: 'DTable',
   props: {
-    // 表格头部
-    tableHeader: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    headerList: {
       type: Array,
       default: () => [],
     },
-    // 表格数据
     tableList: {
       type: Array,
       default: () => [],
     },
-    // 加载动画
-    loading: {
-      type: Boolean,
-    },
-    // 固定高度
-    height: {
-      type: [Number, String, Function],
-      default: () => null,
-    },
-    // 跟:reserve-selection="true"结合，保证模态框内的客户列表数据翻页依然选中之前选择的
-    rowKey: {
-      type: String,
-      default: function () {
-        return 'id'
-      },
-    },
     stripe: {
       type: Boolean,
+      default: true,
+    },
+    headerCellStyle: {
+      type: Object,
+      default: () => ({
+        fontSize: '16px',
+        color: '#36395C',
+        background: '#F5F6FB',
+      }),
+    },
+    rowStyle: {
+      type: Object,
+      default: () => ({
+        height: '44px',
+        fontSize: '14px',
+      }),
+    },
+    placeholder: {
+      type: String,
+      default: '--',
     },
   },
+  data() {
+    return {
+      defaultAlign: 'center',
+      smallWidth: 55,
+      normalWidth: 150,
+    }
+  },
   methods: {
-    /**
-     * 是否可选
-     */
+    // 复选框是否可选
     selectable(row) {
-      // 默认是可选的
-      // 如果将 $selectable 属性设置为了 false 就不可选
       return row.$selectable !== false
-    },
-    /**
-     * 选择框选择后更改,事件分发
-     */
-    selectionChange(selection) {
-      this.$emit('selection-change', selection)
-    },
-    /**
-     * 点击事件
-     */
-    rowClick(row, column, event) {
-      console.log(row, column, event, 21222)
-      this.$emit('row-click', row, column, event)
-    },
-    /**
-     * 单选时触发
-     */
-    selectItem(selection, row) {
-      this.$emit('selectItem', selection, row)
-    },
-    /**
-     * 当用户手动勾选全选 Checkbox 时触发的事件
-     */
-    selectAll(selection) {
-      this.$emit('select-all', selection)
-    },
-    /**
-     * 清除全选事件
-     */
-    _clearSelection() {
-      this.$refs.dynamicTable.clearSelection()
-    },
-    // 排序
-    sortChange(column) {
-      this.$emit('sort-change', column)
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.d-table {
+  width: 100%;
+}
 </style>
