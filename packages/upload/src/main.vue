@@ -1,37 +1,36 @@
 <template>
-  <div class="upload-global-container">
+  <div class="d-upload-container">
     <el-upload
-      ref="upload"
+      class="d-upload"
+      ref="dUpload"
       :limit="limit"
       :accept="accept"
       :multiple="multiple"
-      :with-credentials="true"
       :file-list="defaultFileList"
       :on-remove="handleRemove"
       :on-success="handleSuccess"
       :before-upload="beforeUpload"
       :on-exceed="handleExceed"
-      class="editor-slide-upload"
       :action="action"
       :list-type="listType"
       :drag="drag"
       :on-preview="handlePreview"
     >
       <el-button
+        v-if="listType === 'text'"
         type="primary"
         icon="el-icon-upload"
-        v-if="listType === 'text'"
       >
         点击上传
       </el-button>
       <el-button
+        v-if="listType === 'picture'"
         type="primary"
         icon="el-icon-upload"
-        v-if="listType === 'picture'"
       >
         点击上传
       </el-button>
-      <div class="icon-center" v-else>
+      <div v-else class="d-icon-center">
         <div v-if="!drag">
           <i v-if="listType !== 'text'" class="el-icon-plus"></i>
         </div>
@@ -49,9 +48,10 @@
         <div class="el-upload__tip">{{ tips }}</div>
       </template>
     </el-upload>
+    
     <!-- 预览 -->
     <el-dialog :visible.sync="dialogVisible">
-      <img w-full :src="dialogImageUrl" alt="Preview Image" />
+      <img w-full :src="dialogImageUrl" />
     </el-dialog>
   </div>
 </template>
@@ -70,11 +70,11 @@ export default {
     },
     action: {
       type: String,
-      default: 'https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15',
+      default: '',
     },
     limit: {
       type: Number,
-      default: 2,
+      default: 5,
     },
     accept: {
       type: String,
@@ -108,9 +108,6 @@ export default {
   mounted() {
     this.defaultFileList = this.fileList
     this.setFileList()
-    if (this.fileType === 'pic') {
-      this.accept = 'image/*'
-    }
     if (this.limit > 1) {
       this.multiple = true
     }
@@ -129,7 +126,6 @@ export default {
         if (UploadObject[objKeyArr[i]].uid === uid) {
           UploadObject[objKeyArr[i]].url = response.datas.url //附件
           UploadObject[objKeyArr[i]].hasSuccess = true
-          // return
         }
       }
       setTimeout(() => {
@@ -192,7 +188,6 @@ export default {
       }
       this.$emit('success-callback', arr)
     },
-    // 选择文件超出选择数量后的回调函数
     handleExceed(files) {
       this.$message.warning(
         `当前限制选择 ${this.limit} 个文件，本次选择了 ${files.length} 个文件，上传失败，请重新选择`
@@ -213,7 +208,6 @@ export default {
       )
     },
     handlePreview(file) {
-      console.log(file)
       this.dialogVisible = true
       this.dialogImageUrl = file.url
     },
@@ -222,19 +216,19 @@ export default {
 </script>
 
 <style lang="scss">
-.upload-global-container {
+.d-upload-container {
   width: 500px;
-  .editor-slide-upload .el-upload {
+  .d-upload .el-upload {
     text-align: left;
   }
-  .editor-slide-upload .el-upload-dragger {
+  .d-upload .el-upload-dragger {
     width: 100%;
     height: auto;
     background-color: #fbfdff;
     border: none;
     border-radius: 6px;
   }
-  .icon-center {
+  .d-icon-center {
     text-align: center;
   }
 }
