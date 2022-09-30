@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { isExternal } from '@/utils/validate'
+import { isExternal } from '../../../src/utils/validate'
 
 export default {
   name: 'DSvgIcon',

@@ -1,15 +1,12 @@
 <template>
-  <div :class="{ hidden: hidden }" class="pagination-container">
+  <div class="d-pagination-container">
     <el-pagination
       v-bind="$attrs"
-      :small="smallType"
-      :background="background"
+      v-on="$listeners"
       :current-page.sync="currentPage"
       :page-size.sync="pageSize"
-      :layout="layout"
       :page-sizes="pageSizes"
-      :pager-count="pagerCount"
-      :total="total"
+      :layout="layout"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
@@ -17,15 +14,11 @@
 </template>
 
 <script>
-import { scrollTo } from '@/utils/scroll-to'
+import { scrollTo } from '../../../src/utils/scroll-to'
 
 export default {
   name: 'DPagination',
   props: {
-    total: {
-      required: true,
-      type: Number,
-    },
     page: {
       type: Number,
       default: 1,
@@ -40,29 +33,13 @@ export default {
         return [10, 15, 20]
       },
     },
-    pagerCount: {
-      type: Number,
-      default: 7,
-    },
     layout: {
       type: String,
       default: 'total, sizes, prev, pager, next, jumper',
     },
-    background: {
-      type: Boolean,
-      default: true,
-    },
     autoScroll: {
       type: Boolean,
       default: true,
-    },
-    hidden: {
-      type: Boolean,
-      default: false,
-    },
-    smallType: {
-      type: Boolean,
-      default: false,
     },
   },
   computed: {
@@ -101,12 +78,8 @@ export default {
 </script>
 
 <style scoped>
-.pagination-container {
+.d-pagination-container {
   text-align: center;
   padding: 32px 16px;
-  background: #fff;
-}
-.pagination-container.hidden {
-  display: none;
 }
 </style>
