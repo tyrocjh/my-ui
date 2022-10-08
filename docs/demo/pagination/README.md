@@ -1,17 +1,29 @@
 ### 分页 pagination
 
-二次封装 el-pagination ，兼容原属性、方法。
+二次封装 el-pagination ，兼容 element-ui 原属性、方法。
 
 #### 基本使用
 
 <template>
-  <Demo-Pagination />
+  <Pagination-Demo1 />
 </template>
 
 <details>
   <summary>查看代码</summary>
 
-  <<< @/docs/.vuepress/components/Demo/Pagination.vue
+  <<< @/docs/.vuepress/components/Pagination/Demo1.vue
+</details>
+
+#### 切换页码后回到页面头部
+
+<template>
+  <Pagination-Demo2 />
+</template>
+
+<details>
+  <summary>查看代码</summary>
+
+  <<< @/docs/.vuepress/components/Pagination/Demo2.vue
 </details>
 
 #### 属性
