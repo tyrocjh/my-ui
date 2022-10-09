@@ -21,7 +21,7 @@
         :selectable="selectable"
         :reserve-selection="item.reserveSelection || false"
         :align="item.align || defaultAlign"
-        :width="item.width || smallWidth"
+        :width="item.width"
       ></el-table-column>
       <!-- 索引 -->
       <el-table-column
@@ -31,7 +31,7 @@
         :label="item.label || '序号'"
         :fixed="item.fixed"
         :align="item.align || defaultAlign"
-        :width="item.width || smallWidth"
+        :width="item.width"
       ></el-table-column>
       <!-- 普通列 -->
       <el-table-column
@@ -43,7 +43,7 @@
         :show-overflow-tooltip="item.showOverflowTooltip"
         :fixed="item.fixed"
         :align="item.align || defaultAlign"
-        :width="item.width || normalWidth"
+        :width="item.width"
       >
         <template slot-scope="scope">
           <span>{{ scope.row[item.prop] || placeholder }}</span>
@@ -76,7 +76,8 @@ export default {
     headerCellStyle: {
       type: Object,
       default: () => ({
-        fontSize: '16px',
+        padding: '2px 0',
+        fontSize: '14px',
         color: '#36395C',
         background: '#F5F6FB',
       }),
@@ -84,7 +85,6 @@ export default {
     rowStyle: {
       type: Object,
       default: () => ({
-        height: '44px',
         fontSize: '14px',
       }),
     },
@@ -96,8 +96,6 @@ export default {
   data() {
     return {
       defaultAlign: 'center',
-      smallWidth: 55,
-      normalWidth: 150,
     }
   },
   methods: {

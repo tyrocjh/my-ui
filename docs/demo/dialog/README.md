@@ -1,6 +1,6 @@
-### 分页 Pagination
+### 对话框 Dialog
 
-二次封装 el-pagination ，兼容 element-ui 原属性、方法。
+二次封装 el-dialog ，兼容 element-ui 原属性、方法。
 
 #### 基本使用
 
