@@ -14,7 +14,7 @@
   <<< @/docs/.vuepress/components/Pagination/Demo1.vue
 </details>
 
-#### 切换页码后回到页面头部
+#### 排版、间距
 
 <template>
   <Pagination-Demo2 />
@@ -26,12 +26,26 @@
   <<< @/docs/.vuepress/components/Pagination/Demo2.vue
 </details>
 
+#### 切换页码后回到页面头部
+
+<template>
+  <Pagination-Demo3 />
+</template>
+
+<details>
+  <summary>查看代码</summary>
+
+  <<< @/docs/.vuepress/components/Pagination/Demo3.vue
+</details>
+
 #### 属性
 
 |参数|说明|类型|默认值|
 |:---|:---|:---|:---|
 |page|当前页，支持 .sync 修饰符|number|1|
 |limit|每页显示条目个数，支持 .sync 修饰符|number|15|
+|align|排版方式，center/left/right|string|center|
+|padding|上下30px内边距|boolean|true|
 |auto-scroll|切换页码后，是否自动回到页面头部|boolean|true|
 
 #### 方法

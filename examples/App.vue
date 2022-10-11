@@ -200,8 +200,7 @@
 
     <br /><br />
 
-    <!-- 对话框 -->
-    <d-dialog :show.sync="roomDlgShow" title="对话框" width="680px">
+    <d-dialog :visible.sync="roomDlgShow" title="对话框" width="680px">
       内容
     </d-dialog>
 

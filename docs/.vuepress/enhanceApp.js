@@ -1,10 +1,11 @@
 import Vue from 'vue'
-import ElementUI from 'element-ui';
+import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import DPagination from '../../packages/pagination'
+import DDialog from '../../packages/dialog'
 
 Vue.use(ElementUI, {
-  size: 'small'
+  size: 'small',
 })
 
-Vue.use(DPagination)
+Vue.use(DPagination).use(DDialog)

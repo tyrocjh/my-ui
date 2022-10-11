@@ -5,37 +5,41 @@
 #### 基本使用
 
 <template>
-  <Pagination-Demo1 />
+  <Dialog-Demo1 />
 </template>
 
 <details>
   <summary>查看代码</summary>
 
-  <<< @/docs/.vuepress/components/Pagination/Demo1.vue
+  <<< @/docs/.vuepress/components/Dialog/Demo1.vue
 </details>
 
-#### 切换页码后回到页面头部
+#### 内置保存/取消功能
 
 <template>
-  <Pagination-Demo2 />
+  <Dialog-Demo2 />
 </template>
 
 <details>
   <summary>查看代码</summary>
 
-  <<< @/docs/.vuepress/components/Pagination/Demo2.vue
+  <<< @/docs/.vuepress/components/Dialog/Demo2.vue
 </details>
 
 #### 属性
 
 |参数|说明|类型|默认值|
 |:---|:---|:---|:---|
-|page|当前页，支持 .sync 修饰符|number|1|
-|limit|每页显示条目个数，支持 .sync 修饰符|number|15|
-|auto-scroll|切换页码后，是否自动回到页面头部|boolean|true|
+|need-action|是否使用内置保存/取消功能|boolean|false|
+|need-cancel|内置保存/取消功能，是否使用取消按钮|boolean|true|
+|confirm-loading|内置保存/取消功能，按钮loading状态|boolean|false|
+|confirm-disable|内置保存/取消功能，按钮禁用状态|boolean|false|
+|confirm-btn-txt|内置保存/取消功能，保存按钮文案|string|保存|
+|cancel-btn-txt|内置保存/取消功能，取消按钮文案|string|取消|
 
 #### 方法
 
 |事件名称|说明|回调参数|
 |:---|:---|:---|
-|pagination|pageSize/currentPage改变时会触发|当前页、每页显示条目个数|
+|handle-confirm|内置保存/取消功能，确认按钮回调|--|
+|handle-cancel|内置保存/取消功能，取消按钮回调|--|

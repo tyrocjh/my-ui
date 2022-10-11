@@ -1,10 +1,8 @@
 <template>
   <div class="demo-box">
-    <d-pagination
-      :total="total"
-      :page.sync="listQuery.pageIndex"
-      :limit.sync="listQuery.pageSize"
-    />
+    <el-button type="primary" @click="dlgShow = true">点击打开Dialog</el-button>
+
+    <d-dialog :visible.sync="dlgShow" title="对话框">内容</d-dialog>
   </div>
 </template>
 
@@ -12,11 +10,7 @@
 export default {
   data() {
     return {
-      total: 20,
-      listQuery: {
-        pageIndex: 1,
-        pageSize: 15,
-      },
+      dlgShow: false,
     }
   },
 }

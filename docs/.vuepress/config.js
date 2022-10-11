@@ -9,6 +9,7 @@ module.exports = {
         collapsable: false,
         children: [
           '../demo/pagination/',
+          '../demo/dialog/',
         ]
       }
     ]

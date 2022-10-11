@@ -4,8 +4,6 @@
       :total="total"
       :page.sync="listQuery.pageIndex"
       :limit.sync="listQuery.pageSize"
-      align="left"
-      :padding="false"
       auto-scroll
     />
   </div>
