@@ -3,7 +3,6 @@
     <div class="d-main">
       <div class="d-load-container">
         <div class="d-box-loading"></div>
-        <!-- <div class="d-tips">东呈云出品</div> -->
       </div>
     </div>
   </div>

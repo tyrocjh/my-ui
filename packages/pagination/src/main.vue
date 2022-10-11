@@ -1,5 +1,5 @@
 <template>
-  <div class="d-pagination-container">
+  <div class="d-pagination-container" :style="styleObj">
     <el-pagination
       v-bind="$attrs"
       v-on="$listeners"
@@ -37,10 +37,26 @@ export default {
       type: String,
       default: 'total, sizes, prev, pager, next, jumper',
     },
+    align: {
+      type: String,
+      default: 'center',
+    },
+    padding: {
+      type: Boolean,
+      default: true,
+    },
     autoScroll: {
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      styleObj: {
+        textAlign: this.align,
+        padding: this.padding ? '30px 0' : '0',
+      },
+    }
   },
   computed: {
     currentPage: {
@@ -76,10 +92,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.d-pagination-container {
-  text-align: center;
-  padding: 32px 16px;
-}
-</style>

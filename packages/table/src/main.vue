@@ -76,7 +76,7 @@ export default {
     headerCellStyle: {
       type: Object,
       default: () => ({
-        padding: '2px 0',
+        padding: '5px 0',
         fontSize: '14px',
         color: '#36395C',
         background: '#F5F6FB',
