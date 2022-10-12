@@ -351,15 +351,15 @@ export default {
       tableHeader: [
         { type: 'selection', fixed: 'left', reserveSelection: true },
         { type: 'index' },
-        { prop: 'age', label: '年龄', sortable: true, width: '200px' },
-        { prop: 'name', label: '姓名', width: '100px' },
+        { prop: 'age', label: '年龄', sortable: true },
+        { prop: 'name', label: '姓名' },
         { slot: 'a' },
-        { prop: 'b', label: 'b', width: '200px' },
-        { prop: 'c', label: 'c', width: '200px' },
-        { prop: 'd', label: 'd', width: '200px' },
-        { prop: 'e', label: 'e', width: '200px' },
-        { prop: 'f', label: 'f', width: '200px' },
-        { prop: 'g', label: 'g', width: '200px' },
+        { prop: 'b', label: 'b' },
+        { prop: 'c', label: 'c' },
+        { prop: 'd', label: 'd' },
+        { prop: 'e', label: 'e' },
+        { prop: 'f', label: 'f' },
+        { prop: 'g', label: 'g' },
         { slot: 'operates' }
       ],
       uploadFileBeans: [

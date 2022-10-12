@@ -4,25 +4,21 @@
       v-bind="$attrs"
       v-on="$listeners"
       :visible.sync="show"
+      :center="center"
       :width="width"
     >
       <slot name="title" slot="title"></slot>
 
       <slot></slot>
 
-      <div v-if="needAction" class="actions">
-        <el-button
-          v-if="needCancel"
-          style="margin-right: 10px; min-width: 80px"
-          @click="handleCancel"
-        >
+      <div v-if="needAction" class="actions" :style="styleObj">
+        <el-button v-if="needCancel" @click="handleCancel">
           {{ cancelBtnTxt }}
         </el-button>
         <el-button
           type="primary"
           :loading="confirmLoading"
           :disabled="confirmDisable"
-          style="min-width: 80px"
           @click="handleConfirm"
         >
           {{ confirmBtnTxt }}
@@ -39,6 +35,10 @@ export default {
   name: 'DDialog',
   props: {
     visible: {
+      type: Boolean,
+      default: false,
+    },
+    center: {
       type: Boolean,
       default: false,
     },
@@ -64,7 +64,7 @@ export default {
     },
     confirmBtnTxt: {
       type: String,
-      default: '保存',
+      default: '确定',
     },
     cancelBtnTxt: {
       type: String,
@@ -72,7 +72,11 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      styleObj: {
+        textAlign: this.center ? 'center' : 'right',
+      },
+    }
   },
   computed: {
     show: {
@@ -99,7 +103,6 @@ export default {
 .d-dialog-container {
   .actions {
     margin-top: 30px;
-    text-align: center;
   }
   ::v-deep(.el-dialog) {
     position: relative;
@@ -109,8 +112,11 @@ export default {
     border-radius: 10px;
   }
   ::v-deep(.el-dialog__header) {
-    padding: 20px 40px;
+    padding: 20px 30px;
     border-bottom: 1px solid #dcdfe6;
+  }
+  ::v-deep(.el-dialog__body) {
+    padding: 30px 30px;
   }
   ::v-deep(.el-dialog__title) {
     font-weight: 600;
@@ -122,9 +128,6 @@ export default {
   ::v-deep(.el-dialog__headerbtn) .el-dialog__close {
     font-weight: 700;
     color: #303133;
-  }
-  ::v-deep(.el-dialog__body) {
-    padding: 30px 40px;
   }
 }
 </style>
