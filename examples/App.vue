@@ -132,8 +132,8 @@
           :filterable="true"
           :showPagination="true"
           :total="total"
-          :page="listQuery.pageIndex"
-          :limit="listQuery.pageSize"
+          :page.sync="listQuery.pageIndex"
+          :limit.sync="listQuery.pageSize"
           @pagination="getHotelList"
         />
       </el-form-item>

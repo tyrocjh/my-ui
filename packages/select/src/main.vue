@@ -29,13 +29,14 @@
 
     <d-pagination
       v-if="showPagination"
-      small-type
+      small
       layout="total, prev, pager, next"
-      :auto-scroll="false"
+      :padding="false"
       :total="total"
-      :page="page"
-      :limit="limit"
+      :page.sync="currentPage"
+      :limit.sync="pageSize"
       @pagination="changePagination"
+      style="margin-top: 10px;"
     />
   </el-select>
 </template>
@@ -100,6 +101,24 @@ export default {
     return {
       selectValue: this.selectModel,
     }
+  },
+  computed: {
+    currentPage: {
+      get() {
+        return this.page
+      },
+      set(val) {
+        this.$emit('update:page', val)
+      },
+    },
+    pageSize: {
+      get() {
+        return this.limit
+      },
+      set(val) {
+        this.$emit('update:limit', val)
+      },
+    },
   },
   methods: {
     handleChange() {
