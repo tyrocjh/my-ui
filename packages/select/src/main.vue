@@ -51,7 +51,7 @@ export default {
   },
   model: {
     prop: 'selectModel',
-    event: 'change',
+    event: 'update',
   },
   props: {
     selectModel: {
@@ -99,10 +99,17 @@ export default {
   },
   data() {
     return {
-      selectValue: this.selectModel,
     }
   },
   computed: {
+    selectValue: {
+      get() {
+        return this.selectModel
+      },
+      set(val) {
+        this.$emit('update', val)
+      },
+    },
     currentPage: {
       get() {
         return this.page
@@ -121,8 +128,8 @@ export default {
     },
   },
   methods: {
-    handleChange() {
-      this.$emit('change', this.selectValue)
+    handleChange(value) {
+      this.$emit('change', value)
     },
     changePagination(data) {
       this.$emit('pagination', data)
