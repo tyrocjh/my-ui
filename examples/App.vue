@@ -337,13 +337,13 @@ export default {
         value: 'id'
       },
       tableList: [
-        { 'id': 1, age: 16, name: '11', $selectable: false, children: [{ 'id': 13, age: 16, name: '11' }], a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
-        { 'id': 2, age: 16, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
-        { 'id': 3, age: 16, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
+        { 'id': 1, age: 16, name: 'undefined', $selectable: false, children: [{ 'id': 13, age: 16, name: '11' }], a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
+        { 'id': 2, age: 16, name: '0', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
+        { 'id': 3, age: 16, name: 0, a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 4, age: 16, name: '11', a: 123, b: 5555, c: '', d: 89, e: 89, f: 89, g: 89 },
-        { 'id': 5, age: 16, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
-        { 'id': 6, age: 12, name: '11', a: 0, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
-        { 'id': 7, age: 16, name: '11', a: 0, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
+        { 'id': 5, age: 16, name: undefined, a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
+        { 'id': 6, age: 12, name: null, a: 0, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
+        { 'id': 7, age: 16, name: '', a: 0, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 8, age: 14, name: '11', a: 0, b: '', c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 9, age: 11, name: '11', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 },
         { 'id': 11, age: 13, name: 'Hello, worldHello, worldHello, world', a: 123, b: 5555, c: 89, d: 89, e: 89, f: 89, g: 89 }

@@ -46,7 +46,7 @@
         :width="item.width"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row[item.prop] || placeholder }}</span>
+          <span>{{ getMessage(scope.row[item.prop]) }}</span>
         </template>
       </el-table-column>
     </template>
@@ -102,6 +102,12 @@ export default {
     // 复选框是否可选
     selectable(row) {
       return row.$selectable !== false
+    },
+    getMessage(value) {
+      if (value === '' || value === undefined || value === null) {
+        return this.placeholder
+      }
+      return value
     },
   },
 }
