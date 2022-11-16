@@ -1,6 +1,6 @@
 <template>
   <el-backtop class="d-back-top" v-bind="$attrs" :bottom="bottom" :right="right">
-    <i class="el-icon-caret-top"></i>
+    <slot />
   </el-backtop>
 </template>
 
