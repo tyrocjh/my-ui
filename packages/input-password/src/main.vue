@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import SvgIcon from '@pkg/svg-icon'
+import SvgIcon from '../../svg-icon'
 
 export default {
   name: 'DInputPassword',
@@ -114,6 +114,7 @@ export default {
     },
     handleClean() {
       this.inputValue = ''
+      this.handleInput('')
       this.$emit('handle-clean')
     },
     handleMouseover() {
