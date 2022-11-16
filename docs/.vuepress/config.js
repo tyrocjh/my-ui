@@ -10,6 +10,7 @@ module.exports = {
         children: [
           '../demo/pagination/',
           '../demo/dialog/',
+          '../demo/backtop/',
         ]
       }
     ]
