@@ -4,9 +4,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 import DPagination from '../../packages/pagination'
 import DDialog from '../../packages/dialog'
 import DBacktop from '../../packages/backtop'
+import DGlobalLoading from '../../packages/global-loading'
 
 Vue.use(ElementUI, {
   size: 'small',
 })
 
-Vue.use(DPagination).use(DDialog).use(DBacktop)
+Vue.use(DPagination).use(DDialog).use(DBacktop).use(DGlobalLoading)

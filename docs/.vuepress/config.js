@@ -11,6 +11,7 @@ module.exports = {
           '../demo/pagination/',
           '../demo/dialog/',
           '../demo/backtop/',
+          '../demo/global-loading/',
         ]
       }
     ]
