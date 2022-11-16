@@ -10,6 +10,7 @@ module.exports = {
         children: [
           '../demo/pagination/',
           '../demo/dialog/',
+          '../demo/input-password/',
           '../demo/backtop/',
           '../demo/global-loading/',
         ]
