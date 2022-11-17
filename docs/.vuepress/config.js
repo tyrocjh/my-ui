@@ -12,6 +12,7 @@ module.exports = {
           '../demo/dialog/',
           '../demo/input-password/',
           '../demo/backtop/',
+          '../demo/progress/',
           '../demo/global-loading/',
         ]
       }

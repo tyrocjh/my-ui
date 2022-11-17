@@ -6,10 +6,16 @@ import DPagination from '../../packages/pagination'
 import DDialog from '../../packages/dialog'
 import DInputPassword from '../../packages/input-password'
 import DBacktop from '../../packages/backtop'
+import DProgress from '../../packages/progress'
 import DGlobalLoading from '../../packages/global-loading'
 
 Vue.use(ElementUI, {
   size: 'small',
 })
 
-Vue.use(DPagination).use(DDialog).use(DInputPassword).use(DBacktop).use(DGlobalLoading)
+Vue.use(DPagination)
+  .use(DDialog)
+  .use(DInputPassword)
+  .use(DBacktop)
+  .use(DProgress)
+  .use(DGlobalLoading)
