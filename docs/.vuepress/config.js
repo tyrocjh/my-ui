@@ -13,6 +13,7 @@ module.exports = {
           '../demo/input-password/',
           '../demo/backtop/',
           '../demo/progress/',
+          '../demo/steps/',
           '../demo/global-loading/',
         ]
       }

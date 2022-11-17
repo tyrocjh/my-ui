@@ -7,6 +7,7 @@ import DDialog from '../../packages/dialog'
 import DInputPassword from '../../packages/input-password'
 import DBacktop from '../../packages/backtop'
 import DProgress from '../../packages/progress'
+import DSteps from '../../packages/steps'
 import DGlobalLoading from '../../packages/global-loading'
 
 Vue.use(ElementUI, {
@@ -18,4 +19,5 @@ Vue.use(DPagination)
   .use(DInputPassword)
   .use(DBacktop)
   .use(DProgress)
+  .use(DSteps)
   .use(DGlobalLoading)
