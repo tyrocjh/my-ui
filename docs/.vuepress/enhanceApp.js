@@ -4,6 +4,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import DPagination from '../../packages/pagination'
 import DDialog from '../../packages/dialog'
+import DSelect from '../../packages/select'
 import DInputPassword from '../../packages/input-password'
 import DBacktop from '../../packages/backtop'
 import DProgress from '../../packages/progress'
@@ -16,6 +17,7 @@ Vue.use(ElementUI, {
 
 Vue.use(DPagination)
   .use(DDialog)
+  .use(DSelect)
   .use(DInputPassword)
   .use(DBacktop)
   .use(DProgress)
