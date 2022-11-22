@@ -11,6 +11,7 @@ module.exports = {
           '../demo/pagination/',
           '../demo/dialog/',
           '../demo/select/',
+          '../demo/table/',
           '../demo/input-password/',
           '../demo/backtop/',
           '../demo/progress/',

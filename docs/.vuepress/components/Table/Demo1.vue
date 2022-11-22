@@ -1,0 +1,30 @@
+<template>
+  <div class="demo-box">
+    <d-table
+      :header-list="headerList"
+      :table-list="tableList"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      headerList: [
+        { prop: 'date', label: '日期' },
+        { prop: 'name', label: '姓名' },
+        { prop: 'phone', label: '电话' },
+        { prop: 'address', label: '地址' },
+      ],
+      tableList: [
+        { date: '2020-01-02', name: '小红', phone: 13548546235, address: '广州' },
+        { date: '2022-02-02', name: '小白', phone: 15984563258, address: '云浮' },
+        { date: '2018-11-03', name: '小黄', phone: 13521236954, address: '云南' },
+        { date: '2021-05-12', name: '小绿', phone: 18542563259, address: '广西' },
+        { date: '2011-01-02', name: '小蓝', phone: 13695478523, address: '深圳' },
+      ]
+    }
+  },
+}
+</script>
